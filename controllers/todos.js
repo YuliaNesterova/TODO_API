@@ -20,7 +20,7 @@ function createItem (req, res) {
   const { item } = req.body;
   const id = Math.floor((1 + Math.random()) * 0x10000);
 
-  db.data.items.push({id: id, name: item, checked: false})
+  db.data.items.unshift({id: id, name: item, checked: false});
   db.write()
     .then(() => {
       res.status(200).send(db.data.items)
@@ -34,7 +34,7 @@ function deleteItem (req, res) {
   if (index > -1) {
     db.data.items.splice(index, 1);
   } else {
-    res.status(404).send('Такой записи не найдено')
+    res.status(404).send('Такой записи не найдено');
   }
   db.write()
     .then(() => {res.send(db.data.items)})
@@ -46,7 +46,7 @@ function markItem (req, res) {
   if (index > -1) {
     db.data.items[index].checked = true;
   } else {
-    res.status(404).send('Такой записи не найдено')
+    res.status(404).send('Такой записи не найдено');
   }
   db.write()
     .then(() => {res.send(db.data.items)})
@@ -58,7 +58,7 @@ function unmarkItem (req, res) {
   if (index > -1) {
     db.data.items[index].checked = false;
   } else {
-    res.status(404).send('Такой записи не найдено')
+    res.status(404).send('Такой записи не найдено');
   }
   db.write()
     .then(() => {res.send(db.data.items)})
