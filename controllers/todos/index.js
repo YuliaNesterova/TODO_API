@@ -12,7 +12,7 @@ module.exports.createItem = async (req, res) => {
   const id = uuidv4();
 
   await todosModel.get('todos')
-    .push({ id: id, name: todo, checked: false})
+    .unshift({ id: id, name: todo, checked: false})
     .write()
 
     res.status(200).send(todosModel.getState());
