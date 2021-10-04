@@ -1,3 +1,9 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": 107610,
+      "name": "test",
+      "checked": false
+    }
+  ]
 }
