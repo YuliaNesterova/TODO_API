@@ -1,3 +1,14 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "2b203302-b6d5-46a9-b756-657398ff0a37",
+      "name": "",
+      "checked": false
+    },
+    {
+      "id": "f431eef0-8974-4724-af38-280772ad4bd2",
+      "name": "",
+      "checked": false
+    }
+  ]
 }

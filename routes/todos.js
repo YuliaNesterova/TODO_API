@@ -1,6 +1,9 @@
 import router from 'express';
+import {
+  getItems, createItem, deleteItem, markItem, unmarkItem,
+} from '../controllers/todos.js';
+
 const todosRouter = router.Router();
-import {getItems, createItem, deleteItem, markItem, unmarkItem} from '../controllers/todos.js'
 
 todosRouter.get('/items', getItems);
 todosRouter.post('/items', createItem);

@@ -1,6 +1,7 @@
 import { join, dirname } from 'path';
 import { Low, JSONFile } from 'lowdb';
 import { fileURLToPath } from 'url';
+import {v4 as uuidv4} from 'uuid'
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -18,7 +19,7 @@ function getItems (req, res) {
 
 function createItem (req, res) {
   const { item } = req.body;
-  const id = Math.floor((1 + Math.random()) * 0x10000);
+  const id = uuidv4()
 
   db.data.items.push({id: id, name: item, checked: false})
   db.write()
@@ -29,20 +30,25 @@ function createItem (req, res) {
 }
 
 function deleteItem (req, res) {
-  const index = db.data.items.findIndex(array => array.id === Number(req.params.itemId));
+  const index = db.data.items.findIndex(array => array.id === req.params.itemId);
 
   if (index > -1) {
     db.data.items.splice(index, 1);
-  } else {
-    res.status(404).send('Такой записи не найдено')
-  }
-  db.write()
+
+    db.write()
     .then(() => {res.send(db.data.items)})
     .catch((err) => console.log(err));
+  } else {
+    res.status(404).send('Такой записи не найдено')
+
+    return
+  }
+
+
 }
 
 function markItem (req, res) {
-  const index = db.data.items.findIndex(array => array.id === Number(req.params.itemId));
+  const index = db.data.items.findIndex(array => array.id === req.params.itemId);
   if (index > -1) {
     db.data.items[index].checked = true;
   } else {
@@ -54,7 +60,7 @@ function markItem (req, res) {
 }
 
 function unmarkItem (req, res) {
-  const index = db.data.items.findIndex(array => array.id === Number(req.params.itemId));
+  const index = db.data.items.findIndex(array => array.id === req.params.itemId);
   if (index > -1) {
     db.data.items[index].checked = false;
   } else {
